@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -42,3 +42,22 @@ def dobro(n):
 @app.route('/perfil/<nome>')
 def perfil(nome):
     return render_template('perfil.html', nome = nome)
+
+#metodos get e post
+#metodo get é padrão, se não definirmos algum método, vai ser automaticamente ele
+@app.route('/dados')
+def dados():
+    return render_template('dados.html')
+
+@app.route('/recebedados', methods=['get'])
+#@app.route('/recebedados', methods=['post'])
+def recebedados():
+    #nome = request.form['nome']
+    #email = request.form['email']
+    nome = request.args['nome']
+    email = request.args ['email']
+    estado = request.args ['estado']
+    formacao = request.args ['formacao']
+    modalidades = request.args.getlist('modalidades')
+    #return nome+'-'+email
+    return render_template('recebedados.html', nome=nome, email=email, estado=estado, formacao=formacao, modalidades = modalidades)

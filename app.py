@@ -90,3 +90,11 @@ def verificalogin():
         return render_template('arearestrita.html')
     else:
         return "Você tem permissão"
+
+@app.route('/verificaidade2/<int:idade>')
+def verificaidade2(idade):
+    return render_template('verificaidade2.html', idade=idade)
+
+@app.route('/usuario/<nome>')
+def  usuario(nome):
+    return render_template('usuario.html', nome=nome)

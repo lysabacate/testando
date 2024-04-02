@@ -61,3 +61,32 @@ def recebedados():
     modalidades = request.args.getlist('modalidades')
     #return nome+'-'+email
     return render_template('recebedados.html', nome=nome, email=email, estado=estado, formacao=formacao, modalidades = modalidades)
+
+@app.route('/verificaridade/<int:idade>')
+def verificaridade(idade):
+    if idade >= 18:
+        return "Você é maior de idade"
+    if idade < 18:
+        return "Você é menor de idade"
+    
+@app.route('/situacaofinal/<float:nota>')
+def situacaofinal(nota):
+    if nota >= 60.0:
+        return "Aprovado"
+    elif nota >= 20.0:
+        return "Recuperação"
+    else:
+        return "Reprovado"
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/verificalogin', methods=['post'])
+def verificalogin():
+    usuario = request.form['usuario']
+    senha = request.form['senha']
+    if usuario=="musbilus" and senha=="123":
+        return render_template('arearestrita.html')
+    else:
+        return "Você tem permissão"

@@ -61,23 +61,35 @@ def recebedados():
     modalidades = request.args.getlist('modalidades')
     #return nome+'-'+email
     return render_template('recebedados.html', nome=nome, email=email, estado=estado, formacao=formacao, modalidades = modalidades)
+    
+
+#estrutura-de-repetição-e-decisão
 
 @app.route('/verificaridade/<int:idade>')
 def verificaridade(idade):
     if idade >= 18:
-        return "Você é maior de idade"
+        return 'Você tem'+ str(idade) +'.Você é maior de idade'
     if idade < 18:
-        return "Você é menor de idade"
+        return 'Você tem'+ str(idade) +'.Você é menor de idade'
     
 @app.route('/situacaofinal/<float:nota>')
 def situacaofinal(nota):
-    if nota >= 60.0:
-        return "Aprovado"
-    elif nota >= 20.0:
-        return "Recuperação"
-    else:
-        return "Reprovado"
-
+	if nota >= 6.0:
+		return 'Você está aprovado'
+	elif nota >= 3.0:
+		return 'Você está em recuperação'
+	else:
+		return 'Você está reprovado'
+     
+#@app.route('/situacaofinal/<float:nota>')
+#def situacaofinal(nota):
+    #if nota >= 60.0:
+        #return "Aprovado"
+    #elif nota >= 20.0:
+        #return "Recuperação"
+    #else:
+        #return "Reprovado"
+     
 @app.route('/login')
 def login():
     return render_template('login.html')
@@ -98,3 +110,23 @@ def verificaidade2(idade):
 @app.route('/usuario/<nome>')
 def  usuario(nome):
     return render_template('usuario.html', nome=nome)
+
+@app.route('/numero/<int:n>')
+def numero(n):
+	return render_template('numero.html', n=n)
+
+@app.route('/compras2')
+def compras2():
+	itens = ['Arroz', 'Feijão', 'Carne', 'Peixe', 'Frango']
+	return render_template('compras2.html', itens=itens)
+
+@app.route('/listadecompras')
+def listadecompras():
+	return render_template('listadecompras.html')
+
+@app.route('/itens', methods=['POST'])
+def itens():
+    itens = request.form.getlist("itens")
+    for i in itens:
+        print(i)
+    return render_template('itens.html', itens=itens)
